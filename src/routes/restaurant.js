@@ -1,7 +1,7 @@
 const router = require('express').Router();
 
 const queryCheckDeletedRestaurant = 'select * from deleted_restaurant_profiles where restaurant_id = ?';
-const queryGetProductsForRestaurant = 'select product_name, price, description from menu, products where restaurant_id = ? and menu.product_id = products.product_id';
+const queryGetProductsForRestaurant = 'select product_name, price, description, product_id from products where restaurant_id = ?';
 const queryGetRestaurantDetails = 'select restaurant_name, phone_number, about, address from restaurant_profile where restaurant_id = ?'
 
 module.exports = (connection, redirectLogin) => {

@@ -58,7 +58,7 @@ const redirectHome = (req, res, next) => {
     }
 };
 
-
+app.use('/', require('./routes/root')(connection));
 app.use('/user/register', require('./routes/user_register')(connection, redirectHome));
 app.use('/user/login', require('./routes/user_login')(connection, redirectHome));
 app.use('/restaurant/register', require('./routes/restaurant_register')(connection, redirectHome));
@@ -69,6 +69,11 @@ app.use('/user', require('./routes/user')(connection, redirectLogin));
 app.use('/restaurant', require('./routes/restaurant')(connection, redirectLogin));
 app.use('/edit_restaurant_profile', require('./routes/edit_restaurant_profile')(connection, redirectLogin));
 app.use('/edit_user_profile', require('./routes/edit_user_profile')(connection, redirectLogin));
+app.use('/insert_product', require('./routes/insert_product')(connection, redirectLogin));
+app.use('/update_product', require('./routes/update_product')(connection, redirectLogin));
+app.use('/delete_restaurant', require('./routes/delete_restaurant')(connection, redirectLogin));
+app.use('/delete_user', require('./routes/delete_user')(connection, redirectLogin));
+app.use('/delete_product', require('./routes/delete_product')(connection, redirectLogin));
 
 const port = 3000;
 

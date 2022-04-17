@@ -3,7 +3,7 @@
 <span style="float: right;">
     <%if (showEdit) {%>
         <button><a href="/edit_restaurant_profile">Edit Profile</a></button>
-        <button><a href="/insert_product">Insert New Product</a></button>
+        <button><a href="/insert_product">Add New Product</a></button>
     <%}%>
 </span>
 <div class="home-box-main">
@@ -28,8 +28,8 @@
                     </p>
                 </div>
                 <%if (showEdit) {%>
-                    <button><a href="/update_product">Update</a></button>
-                    <button><a href="/delete_product">Delete</a></button>
+                    <button><a href=<%= "/update_product/" + product.product_id %>>Update</a></button>
+                    <button><a href=<%= "/delete_product/" + product.product_id %>>Delete</a></button>
                 <%}%>
             </div>
         <%}%>

@@ -21,6 +21,7 @@ module.exports = (connection, redirectLogin) => {
                             res.render('some_error');
                         }
                         else{
+                            console.log(rows2[0]);
                             res.render('home', {user : rows2[0], restaurant_details : rows1});
                         }
                     })

@@ -1,11 +1,11 @@
 <%- include('header', {logout : true})%>
 <div class="ext-box for-register">
     <h3>Edit Profile for @<%= user.user_name %></h3>
-    <form action="/edit_user_profile" method="post">
+    <form action="/edit_user" method="post">
         <table style="width: 100%;">
             <tr>
                 <td>Full Name</td>
-                <td><input type="text" name="full_name" value=<%= user.full_name %>></td>
+                <td><input type="text" name="fullname" value=<%= user.full_name %>></td>
             </tr>
             <tr>
                 <td>Phone Number</td>
@@ -18,6 +18,10 @@
         </table> 
         <button class="cmn-btn">SAVE CHANGES</button>           
     </form>
-    <button class="cmn-btn delete-btn"><a href="/delete_user_profile">DELETE ACCOUNT</a></button> 
+    <form method="get" action="/delete_user">
+        <button type="submit" class="cmn-btn delete-btn">
+            DELETE ACCOUNT
+        </button>
+    </form>
 </div>
 <%- include('footer')%>

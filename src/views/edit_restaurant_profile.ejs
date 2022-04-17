@@ -22,6 +22,10 @@
         </table> 
         <button class="cmn-btn">SAVE CHANGES</button>           
     </form>
-    <button class="cmn-btn delete-btn"><a href="/delete_restaurant_profile">DELETE ACCOUNT</a></button> 
+    <form method="get" action="/delete_restaurant">
+        <button type="submit" class="cmn-btn delete-btn">
+            DELETE
+        </button>
+    </form>
 </div>
 <%- include('footer')%>
