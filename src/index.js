@@ -65,6 +65,7 @@ app.use('/restaurant/register', require('./routes/restaurant_register')(connecti
 app.use('/restaurant/login', require('./routes/restaurant_login')(connection, redirectHome));
 app.use('/logout', require('./routes/logout')(redirectLogin, SESS_NAME));
 app.use('/home', require('./routes/home')(connection, redirectLogin));
+app.use('/user', require('./routes/user')(connection, redirectLogin));
 app.use('/restaurant', require('./routes/restaurant')(connection, redirectLogin));
 app.use('/edit_restaurant_profile', require('./routes/edit_restaurant_profile')(connection, redirectLogin));
 app.use('/edit_user_profile', require('./routes/edit_user_profile')(connection, redirectLogin));

@@ -3,6 +3,7 @@
 <span style="float: right;">
     <%if (showEdit) {%>
         <button><a href="/edit_restaurant_profile">Edit Profile</a></button>
+        <button><a href="/insert_product">Insert New Product</a></button>
     <%}%>
 </span>
 <div class="home-box-main">
@@ -15,16 +16,22 @@
                             <%= product.product_name %>
                         </h2>
                     </span>
+                    <span class="twt-meta-span">
+                        <h2>
+                            <%= product.price %>
+                        </h2>
+                    </span>
                 </div>
                 <div class="for-fulltweet-sub">
-                    <p>
-                        <%= product.price %>
-                    </p>
                     <p>
                         <%= product.description %>
                     </p>
                 </div>
-            </div>    
+                <%if (showEdit) {%>
+                    <button><a href="/update_product">Update</a></button>
+                    <button><a href="/delete_product">Delete</a></button>
+                <%}%>
+            </div>
         <%}%>
     <%}%>
 </div>

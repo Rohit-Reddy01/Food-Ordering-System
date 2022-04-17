@@ -14,7 +14,7 @@ module.exports = (connection, redirectLogin) => {
         }
         connection.query(queryCheckDeletedRestaurant, [id], (err, rows1) => {
             if(err){
-                console.log('err');
+                console.log(err);
                 res.render('some_error');
             }
             else{
@@ -24,7 +24,7 @@ module.exports = (connection, redirectLogin) => {
                 else{
                     connection.query(queryGetRestaurantDetails, [id], (err, rows2) => {
                         if(err){
-                            console.log('error');
+                            console.log(err);
                             res.render('some_error');
                         }
                         else{

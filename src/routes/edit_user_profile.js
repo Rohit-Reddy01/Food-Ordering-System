@@ -19,7 +19,7 @@ module.exports = (connection, redirectLogin) => {
 
     router.post('/', redirectLogin, (req, res) => {
         const {userIdInSession} = req.session;
-        const id = userIdInSession;
+        const id = userIdInSession - 10000;
         const {full_name, phone_number, address} = req.body;
         connection.query(queryUpdateUserProfile, [full_name, phone_number, address, id], (err, rows) => {
             if(err){
