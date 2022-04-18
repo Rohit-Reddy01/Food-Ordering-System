@@ -1,6 +1,6 @@
 const router = require('express').Router();
 
-const queryGetNumberOfUsers = 'select count(*) as user_count from user_profile';
+const queryGetUserId = 'select max(user_id) as user_id from user_profile';
 const queryForRegister = 'insert into user_profile values(?, ?, ?, ?, ?, ?)';
 const queryGetUserForUsername = 'select count(*) as user_count from user_profile where user_name = ?';
 
@@ -13,10 +13,10 @@ module.exports = (connection, redirectHome) => {
         console.log(req.body);
         const { username, fullname, address, phonenumber, password } = req.body;
         if (username && fullname && address && phonenumber && password) {
-            connection.query(queryGetNumberOfUsers, (err, rows1, fields) => {
+            connection.query(queryGetUserId, (err, rows1, fields) => {
                 if (err) {
                     console.log(err);
-                    res.render('some error');
+                    res.render('some_error');
                 } 
                 else {
                     connection.query(queryGetUserForUsername, [username], (err, rows2, fields) => {
@@ -29,16 +29,18 @@ module.exports = (connection, redirectHome) => {
                                 res.render('user_register', { errmsg: 'Username already exists'});
                             }
                             else{
-                                const user_id = rows1[0].user_count + 1;
-                                connection.query(queryForRegister, [user_id, username, fullname, address, phonenumber, password], (err, rows3, fields) => {
+                                let new_user_id = rows1[0].user_id + 1;
+                                if(!rows1[0])
+                                    new_user_id = 1;
+                                connection.query(queryForRegister, [new_user_id, username, fullname, address, phonenumber, password], (err, rows3, fields) => {
                                     if (err) {
                                         console.log(err);
                                         res.render('some_error');
                                     }
                                     else{
-                                        req.session.userIdInSession = user_id;
+                                        req.session.userIdInSession = new_user_id + 10000;
                                         req.session.usernameInSession = username;
-                                        console.log('User successfully registered. Details: ', rows3);
+                                        //console.log('User successfully registered. Details: ', rows3);
                                         res.redirect('/');
                                     }
                                 })

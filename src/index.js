@@ -44,15 +44,17 @@ app.use(session({
 
 const redirectLogin = (req, res, next) => {
     if (!req.session.userIdInSession) {
-        res.redirect('/user/login');
+        res.redirect('/');
     } else {
         next();
     }
 };
 
 const redirectHome = (req, res, next) => {
-    if (req.session.userIdInSession) {
+    if (req.session.userIdInSession > 10000) {
         res.redirect('/home');
+    } else if (req.session.userIdInSession) {
+        res.redirect('/restaurant/' +  req.session.userIdInSession);
     } else {
         next();
     }

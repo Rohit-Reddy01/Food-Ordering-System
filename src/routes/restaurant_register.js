@@ -38,7 +38,7 @@ module.exports = (connection, redirectHome) => {
                                     else{
                                         req.session.userIdInSession = restaurant_id;
                                         req.session.usernameInSession = username;
-                                        console.log('User successfully registered. Details: ', rows3);
+                                        //console.log('User successfully registered. Details: ', rows3);
                                         res.redirect('/');
                                     }
                                 })
