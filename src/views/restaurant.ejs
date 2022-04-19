@@ -12,6 +12,11 @@
             <div class="for-fulltweet-sub">
                 <div class="home-box-twt-meta">
                     <span class="twt-meta-span">
+                        <img src=<%= product.image %> alt="Item Image" width="200" height="200">
+                    </span>
+                </div>
+                <div class="home-box-twt-meta">
+                    <span class="twt-meta-span">
                         <h2>
                             <%= product.product_name %>
                         </h2>
@@ -27,6 +32,14 @@
                         <%= product.description %>
                     </p>
                 </div>
+                <%if (showCart) {%>
+                    <form action="/cart" method="post">
+                        <input type="number" name="qty" min="0" max="99" step="1" value="0" >
+                        <input type="hidden" name="productid" value=<%=product.product_id%> >
+                        <input type="hidden" name="restaurantid" value=<%=product.restaurant_id%> >
+                        <button>Add to cart</button>
+                    </form>
+                <%}%>
                 <%if (showEdit) {%>
                     <button><a href=<%= "/update_product/" + product.product_id %>>Update</a></button>
                     <button><a href=<%= "/delete_product/" + product.product_id %>>Delete</a></button>

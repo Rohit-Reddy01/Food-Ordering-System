@@ -51,12 +51,11 @@
             <div class="top-navbar-kid">
                 <p><a href="/all_tweakers">Tweakeratti</a></p>
             </div>
-            <div class="top-navbar-kid">
-                <p><a href="/new_tweet">Tweet</a></p>
-            </div>
-            <div class="top-navbar-kid">
-                <p><a href="/about">About</a></p>
-            </div>
+            <% if (logout) {%>
+                <div class="top-navbar-kid">
+                    <p><a href="/cart">Cart</a></p>
+                </div>
+            <%}%>
             <% if (logout) {%>
                 <div class="top-navbar-kid logout-btn">
                     <form action="/logout" method="POST">

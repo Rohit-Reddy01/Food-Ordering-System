@@ -1,7 +1,7 @@
 const router = require('express').Router();
 
-const queryCheckDeletedRestaurant = 'select * from deleted_restaurant_profiles where restaurant_id = ?';
-const queryGetProductsForRestaurant = 'select product_name, price, description, product_id from products where restaurant_id = ?';
+const queryCheckDeletedRestaurant = 'select * from restaurant_profile where restaurant_id = ?';
+const queryGetProductsForRestaurant = 'select * from products where restaurant_id = ?';
 const queryGetRestaurantDetails = 'select restaurant_name, phone_number, about, address from restaurant_profile where restaurant_id = ?'
 
 module.exports = (connection, redirectLogin) => {
@@ -9,8 +9,12 @@ module.exports = (connection, redirectLogin) => {
         const id = req.params.id;
         const {userIdInSession} = req.session;
         let showEdit = false;
+        let showCart = false;
         if(userIdInSession == id){
             showEdit = true;
+        }
+        if(userIdInSession > 10000){
+            showCart = true;
         }
         connection.query(queryCheckDeletedRestaurant, [id], (err, rows1) => {
             if(err){
@@ -18,7 +22,7 @@ module.exports = (connection, redirectLogin) => {
                 res.render('some_error');
             }
             else{
-                if(rows1[0]){
+                if(!rows1[0]){
                     res.render('no_such_profile');
                 }
                 else{
@@ -34,7 +38,7 @@ module.exports = (connection, redirectLogin) => {
                                     res.render('some_error');
                                 }
                                 else{
-                                    res.render('restaurant', {restaurant : rows2[0], product_list : rows3, showEdit : showEdit});
+                                    res.render('restaurant', {restaurant : rows2[0], product_list : rows3, showEdit : showEdit, showCart : showCart});
                                 }
                             })
                         }

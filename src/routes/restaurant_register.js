@@ -1,6 +1,6 @@
 const router = require('express').Router();
 
-const queryGetNumberOfRestaurants = 'select count(*) as restaurant_count from restaurant_profile';
+const queryGetRestaurantId = 'select max(restaurant_id) as restaurant_count from restaurant_profile';
 const queryForRegister = 'insert into restaurant_profile values(?, ?, ?, ?, ?, ?, ?)';
 const queryGetRestaurantForRestaurantname = 'select count(*) as restaurant_count from restaurant_profile where restaurant_username = ?';
 
@@ -13,7 +13,7 @@ module.exports = (connection, redirectHome) => {
         console.log(req.body);
         const { username, restaurantname, address, phonenumber, password, about } = req.body;
         if (username && restaurantname && address && phonenumber && password && about) {
-            connection.query(queryGetNumberOfRestaurants, (err, rows1, fields) => {
+            connection.query(queryGetRestaurantId, (err, rows1, fields) => {
                 if (err) {
                     console.log(err);
                     res.render('some error');
@@ -29,14 +29,16 @@ module.exports = (connection, redirectHome) => {
                                 res.render('restaurant_register', { errmsg: 'Username already exists'});
                             }
                             else{
-                                const restaurant_id = rows1[0].restaurant_count + 1;
-                                connection.query(queryForRegister, [restaurant_id, restaurantname, username, password, phonenumber, about, address], (err, rows3, fields) => {
+                                let new_restaurant_id = rows1[0].restaurant_count + 1;
+                                if(!new_restaurant_id)
+                                    new_restaurant_id = 1;
+                                connection.query(queryForRegister, [new_restaurant_id, restaurantname, username, password, phonenumber, about, address], (err, rows3, fields) => {
                                     if (err) {
                                         console.log(err);
                                         res.render('some_error');
                                     }
                                     else{
-                                        req.session.userIdInSession = restaurant_id;
+                                        req.session.userIdInSession = new_restaurant_id;
                                         req.session.usernameInSession = username;
                                         //console.log('User successfully registered. Details: ', rows3);
                                         res.redirect('/');

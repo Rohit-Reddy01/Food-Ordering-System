@@ -1,7 +1,7 @@
 const router = require('express').Router();
 
-const queryGetProductDetails = 'select product_id, product_name, price, description from products where product_id = ?';
-const queryUpdateProductDetails = 'update products set product_name = ?, price = ?, description = ? where product_id = ?';
+const queryGetProductDetails = 'select product_id, product_name, price, description, image from products where product_id = ?';
+const queryUpdateProductDetails = 'update products set product_name = ?, price = ?, description = ?, image = ? where product_id = ?';
 
 module.exports = (connection, redirectLogin) => {
 
@@ -21,8 +21,8 @@ module.exports = (connection, redirectLogin) => {
     router.post('/:product_id', redirectLogin, (req, res) => {
         const {userIdInSession} = req.session;
         const {product_id} = req.params;
-        const {productname, price, description} = req.body;
-        connection.query(queryUpdateProductDetails, [productname, price, description, product_id], (err, rows1) => {
+        const {productname, price, description, imageurl} = req.body;
+        connection.query(queryUpdateProductDetails, [productname, price, description, imageurl, product_id], (err, rows1) => {
             if(err){
                 console.log(err);
                 res.render('some_error');

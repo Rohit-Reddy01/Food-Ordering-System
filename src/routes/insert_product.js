@@ -1,7 +1,7 @@
 const router = require('express').Router();
 
 const queryGetTotalProducts = 'select max(product_id) as product_id from products';
-const queryInsertIntoProduct = 'insert into products values(?, ?, ?, ?, ?)';
+const queryInsertIntoProduct = 'insert into products values(?, ?, ?, ?, ?, ?)';
 
 module.exports = (connection, redirectLogin) => {
 
@@ -11,7 +11,7 @@ module.exports = (connection, redirectLogin) => {
 
     router.post('/', redirectLogin, (req, res) => {
         const {userIdInSession} = req.session;
-        const {productname, price, description} = req.body;
+        const {productname, price, description, imageurl} = req.body;
         if(productname && price && description){
             connection.query(queryGetTotalProducts, (err, rows1) => {
                 if(err){
@@ -22,7 +22,7 @@ module.exports = (connection, redirectLogin) => {
                     let newProductId = rows1[0].product_id + 1;
                     if(!newProductId)
                         newProductId = 1;
-                    connection.query(queryInsertIntoProduct, [newProductId, productname, userIdInSession, price, description], (err, rows1) => {
+                    connection.query(queryInsertIntoProduct, [newProductId, productname, userIdInSession, price, description, imageurl], (err, rows1) => {
                         if(err){
                             console.log(err);
                             res.render('some_error');

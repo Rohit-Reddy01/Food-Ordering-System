@@ -1,7 +1,6 @@
 const router = require('express').Router();
 
 const queryForLogin = 'select user_id from user_profile where user_name = ? and user_password = ?';
-const queryCheckDeletedUser = 'select * from deletedprofiles where user_id = ?';
 
 module.exports = (connection, redirectHome) => {
     router.get('/', redirectHome, (req, res) => {
@@ -22,23 +21,10 @@ module.exports = (connection, redirectHome) => {
                         res.render('user_login', {errmsg : "Username or Password is incorrect"});
                     } 
                     else {
-                        connection.query(queryCheckDeletedUser, [rows[0].user_id], (err, rows0) => {
-                            if (err) {
-                                console.log(err);
-                                res.render('some_error');
-                            }
-                            else {
-                                if (rows0[0]) {
-                                    res.render('nosuchprofileforlogin');
-                                }
-                                else {
-                                    console.log('Login successful for username : ', username);
-                                    req.session.userIdInSession = rows[0].user_id + 10000;
-                                    req.session.usernameInSession = username;
-                                    res.redirect('/home');
-                                }
-                            }
-                        });                        
+                        console.log('Login successful for username : ', username);
+                        req.session.userIdInSession = rows[0].user_id + 10000;
+                        req.session.usernameInSession = username;
+                        res.redirect('/home');
                     }
                 }
             });

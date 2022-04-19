@@ -1,7 +1,6 @@
 const router = require('express').Router();
 
 const queryForLogin = 'select restaurant_id from restaurant_profile where restaurant_username = ? and password = ?';
-const queryCheckDeletedRestaurant = 'select * from deleted_restaurant_profiles where restaurant_id = ?';
 
 module.exports = (connection, redirectHome) => {
     router.get('/', redirectHome, (req, res) => {
@@ -21,24 +20,11 @@ module.exports = (connection, redirectHome) => {
                         res.render('restaurant_login', {errmsg : "Username or Password is incorrect"});
                     } 
                     else {
-                        connection.query(queryCheckDeletedRestaurant, [rows[0].restaurant_id], (err, rows0) => {
-                            if (err) {
-                                console.log(err);
-                                res.render('some_error');
-                            }
-                            else {
-                                if (rows0[0]) {
-                                    res.render('nosuchprofileforlogin');
-                                }
-                                else {
-                                    console.log('Login successful for username : ', username);
-                                    const id = rows[0].restaurant_id;
-                                    req.session.userIdInSession = id;
-                                    req.session.usernameInSession = username;
-                                    res.redirect(`/restaurant/${id}`);
-                                }
-                            }
-                        });                        
+                        console.log('Login successful for username : ', username);
+                        const id = rows[0].restaurant_id;
+                        req.session.userIdInSession = id;
+                        req.session.usernameInSession = username;
+                        res.redirect(`/restaurant/${id}`);                       
                     }
                 }
             });

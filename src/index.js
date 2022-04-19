@@ -76,6 +76,10 @@ app.use('/update_product', require('./routes/update_product')(connection, redire
 app.use('/delete_restaurant', require('./routes/delete_restaurant')(connection, redirectLogin));
 app.use('/delete_user', require('./routes/delete_user')(connection, redirectLogin));
 app.use('/delete_product', require('./routes/delete_product')(connection, redirectLogin));
+app.use('/buynow', require('./routes/buynow')(connection, redirectLogin));
+app.use('/cart', require('./routes/cart')(connection, redirectLogin));
+app.use('/removefromcart', require('./routes/removefromcart')(connection, redirectLogin));
+app.use('/pending_orders', require('./routes/pending_orders')(connection, redirectLogin));
 
 const port = 3000;
 
