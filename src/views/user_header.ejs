@@ -48,5 +48,17 @@
             <div class="top-navbar-kid">
                 <p><a href="/">Home</a></p>
             </div>
+            <% if (logout) {%>
+                <div class="top-navbar-kid">
+                    <p><a href="/cart">Cart</a></p>
+                </div>
+            <%}%>
+            <% if (logout) {%>
+                <div class="top-navbar-kid logout-btn">
+                    <form action="/logout" method="POST">
+                        <button>LOGOUT</button>
+                    </form>                    
+                </div>
+            <%}%>
 
         </div>

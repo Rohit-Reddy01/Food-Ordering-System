@@ -48,5 +48,18 @@
             <div class="top-navbar-kid">
                 <p><a href="/">Home</a></p>
             </div>
+            <% if (logout) {%>
+                <div class="top-navbar-kid">
+                    <p><a href="/pending_orders">Pending Orders</a></p>
+                </div>
+            <%}%>
+
+            <% if (logout) {%>
+                <div class="top-navbar-kid logout-btn">
+                    <form action="/logout" method="POST">
+                        <button>LOGOUT</button>
+                    </form>                    
+                </div>
+            <%}%>
 
         </div>

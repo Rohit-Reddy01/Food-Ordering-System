@@ -1,3 +1,5 @@
+const user = require('./user');
+
 const router = require('express').Router();
 
 const queryCheckDeletedRestaurant = 'select * from restaurant_profile where restaurant_id = ?';
@@ -38,7 +40,12 @@ module.exports = (connection, redirectLogin) => {
                                     res.render('some_error');
                                 }
                                 else{
-                                    res.render('restaurant', {restaurant : rows2[0], product_list : rows3, showEdit : showEdit, showCart : showCart});
+                                    if(userIdInSession > 10000){
+                                        res.render('urestaurant', {restaurant : rows2[0], product_list : rows3, showEdit : showEdit, showCart : showCart});
+                                    }
+                                    else{
+                                        res.render('rrestaurant', {restaurant : rows2[0], product_list : rows3, showEdit : showEdit, showCart : showCart});
+                                    }
                                 }
                             })
                         }
