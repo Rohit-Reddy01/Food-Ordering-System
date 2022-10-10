@@ -3,7 +3,8 @@ Full Stack Web application to order various food items from restaurants
 
 
 
-Instruction:
+#Instructions:
+
 Run schema file in mysql.
 
 Type 'npm install' in commandline.
