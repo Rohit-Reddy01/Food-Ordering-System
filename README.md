@@ -3,7 +3,7 @@ Full Stack Web application to order various food items from restaurants
 
 
 
-#Instructions:
+**Instructions:**
 
 Run schema file in mysql.
 
